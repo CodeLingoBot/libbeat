@@ -54,7 +54,7 @@ func (mh *testMessageHandler) waitForMessages(n int) ([]message, error) {
 				return msgs, nil
 			}
 		case <-time.After(10 * time.Second):
-			return nil, fmt.Errorf("Expected %d messages but received %d.",
+			return nil, fmt.Errorf("expected %d messages but received %d",
 				n, len(msgs))
 		}
 	}

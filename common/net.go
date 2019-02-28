@@ -44,7 +44,7 @@ func LocalIpAddrsAsStrings(include_loopbacks bool) ([]string, error) {
 func IsLoopback(ip_str string) (bool, error) {
 	ip := net.ParseIP(ip_str)
 	if ip == nil {
-		return false, fmt.Errorf("Wrong IP format %s", ip_str)
+		return false, fmt.Errorf("wrong IP format %s", ip_str)
 	}
 	return ip.IsLoopback(), nil
 }

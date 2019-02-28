@@ -58,13 +58,13 @@ func LoadConfiguredFilters(config map[string]interface{}) ([]FilterPlugin, error
 	}
 	filters_iface, ok := filters_list.([]interface{})
 	if !ok {
-		return nil, fmt.Errorf("Expected the filters to be an array of strings")
+		return nil, fmt.Errorf("expected the filters to be an array of strings")
 	}
 
 	for _, filter_iface := range filters_iface {
 		filter, ok := filter_iface.(string)
 		if !ok {
-			return nil, fmt.Errorf("Expected the filters array to only contain strings")
+			return nil, fmt.Errorf("expected the filters array to only contain strings")
 		}
 		cfg, exists := config[filter]
 		var plugin_type Filter
@@ -73,13 +73,13 @@ func LoadConfiguredFilters(config map[string]interface{}) ([]FilterPlugin, error
 			// Maybe default configuration by name
 			plugin_type, err = FilterFromName(filter)
 			if err != nil {
-				return nil, fmt.Errorf("No such filter type and no corresponding configuration: %s", filter)
+				return nil, fmt.Errorf("no such filter type and no corresponding configuration: %s", filter)
 			}
 		} else {
 			logp.Debug("filters", "%v", cfg)
 			plugin_config, ok := cfg.(map[interface{}]interface{})
 			if !ok {
-				return nil, fmt.Errorf("Invalid configuration for: %s", filter)
+				return nil, fmt.Errorf("invalid configuration for: %s", filter)
 			}
 			type_str, ok := plugin_config["type"].(string)
 			if !ok {
@@ -87,17 +87,17 @@ func LoadConfiguredFilters(config map[string]interface{}) ([]FilterPlugin, error
 			}
 			plugin_type, err = FilterFromName(type_str)
 			if err != nil {
-				return nil, fmt.Errorf("No such filter type: %s", type_str)
+				return nil, fmt.Errorf("no such filter type: %s", type_str)
 			}
 		}
 
 		filter_plugin := Filters.Get(plugin_type)
 		if filter_plugin == nil {
-			return nil, fmt.Errorf("No plugin loaded for %s", plugin_type)
+			return nil, fmt.Errorf("no plugin loaded for %s", plugin_type)
 		}
 		plugin, err := filter_plugin.New(filter, plugin_config)
 		if err != nil {
-			return nil, fmt.Errorf("Initializing filter plugin %s failed: %v",
+			return nil, fmt.Errorf("initializing filter plugin %s failed: %v",
 				plugin_type, err)
 		}
 		plugins = append(plugins, plugin)
@@ -118,7 +118,7 @@ func FiltersRun(config common.MapStr, plugins map[Filter]FilterPlugin,
 	filters_plugins, err :=
 		LoadConfiguredFilters(config)
 	if err != nil {
-		return nil, fmt.Errorf("Error loading filters plugins: %v", err)
+		return nil, fmt.Errorf("error loading filters plugins: %v", err)
 	}
 	logp.Debug("filters", "Filters plugins order: %v", filters_plugins)
 

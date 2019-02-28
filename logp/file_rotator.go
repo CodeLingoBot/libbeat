@@ -42,7 +42,7 @@ func (rotator *FileRotator) CreateDirectory() error {
 
 func (rotator *FileRotator) CheckIfConfigSane() error {
 	if len(rotator.Name) == 0 {
-		return fmt.Errorf("File logging requires a name for the file names")
+		return fmt.Errorf("file logging requires a name for the file names")
 	}
 	if rotator.KeepFiles == nil {
 		rotator.KeepFiles = new(int)
@@ -54,7 +54,7 @@ func (rotator *FileRotator) CheckIfConfigSane() error {
 	}
 
 	if *rotator.KeepFiles < 2 || *rotator.KeepFiles >= RotatorMaxFiles {
-		return fmt.Errorf("The number of files to keep should be between 2 and %d", RotatorMaxFiles-1)
+		return fmt.Errorf("the number of files to keep should be between 2 and %d", RotatorMaxFiles-1)
 	}
 	return nil
 }
@@ -136,7 +136,7 @@ func (rotator *FileRotator) Rotate() error {
 
 		if rotator.FileExists(file_no + 1) {
 			// next file exists, something is strange
-			return fmt.Errorf("File %s exists, when rotating would overwrite it", rotator.FilePath(file_no+1))
+			return fmt.Errorf("file %s exists, when rotating would overwrite it", rotator.FilePath(file_no+1))
 		}
 
 		err := os.Rename(file_path, rotator.FilePath(file_no+1))

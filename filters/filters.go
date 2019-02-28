@@ -49,7 +49,7 @@ func FilterFromName(name string) (Filter, error) {
 			return Filter(i), nil
 		}
 	}
-	return -1, fmt.Errorf("No filter named %s", name)
+	return -1, fmt.Errorf("no filter named %s", name)
 }
 
 // Contains a list of the available filter plugins.

@@ -26,7 +26,7 @@ func init() {
 func ChangeDefaultCfgfileFlag(beatName string) error {
 	cliflag := flag.Lookup("c")
 	if cliflag == nil {
-		return fmt.Errorf("Flag -c not found")
+		return fmt.Errorf("flag -c not found")
 	}
 
 	if runtime.GOOS == "windows" {
@@ -49,10 +49,10 @@ func Read(out interface{}, path string) error {
 	filecontent, err := ioutil.ReadFile(path)
 
 	if err != nil {
-		return fmt.Errorf("Failed to read %s: %v. Exiting.", path, err)
+		return fmt.Errorf("failed to read %s: %v. Exiting", path, err)
 	}
 	if err = yaml.Unmarshal(filecontent, out); err != nil {
-		return fmt.Errorf("YAML config parsing failed on %s: %v. Exiting.", path, err)
+		return fmt.Errorf("YAML config parsing failed on %s: %v. Exiting", path, err)
 	}
 
 	return nil
